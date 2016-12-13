@@ -1,7 +1,7 @@
 # Example usage:
-# awk parse.awk JMdict 悪い 良い 国士無双 -- to find entries exactly
+# awk -f parse.awk JMdict 悪い 良い 国士無双 -- to find entries exactly
 # matching input
-# awk parse.awk -v inexact=1 JMdict 悪い 良い 国士無双 -- to find all
+# awk -f parse.awk -v inexact=1 JMdict 悪い 良い 国士無双 -- to find all
 # mentions of provided words
 
 function get_contents() {
