@@ -1,12 +1,12 @@
 # Example usage:
-# awk parse.awk -v S=悪い JMdict -- to find all entries mentioning "悪い"
-# awk parse.awk -v S=悪い -v exact=1 JMdict -- to find exact mathes only
+# awk parse.awk -v S=悪い JMdict -- to find entries exactly matching "悪い"
+# awk parse.awk -v S=悪い -v inexact=1 JMdict -- to find all mentions of "悪い"
 
 BEGIN {
-    if (exact)
-        Match = ">" S "<"
-    else
+    if (inexact)
         Match = S
+    else
+        Match = ">" S "<"
 }
 
 function get_contents() {
