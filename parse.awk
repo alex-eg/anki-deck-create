@@ -42,23 +42,18 @@ BEGIN {
     }
 }
 
-in_entry && /<gloss.*lang="rus">/ {
+/<gloss.*lang="rus">/ {
     gloss[gn++] = get_contents()
     next
 }
 
-in_entry && /<reb>/ {
+/<reb>/ {
     kr[krn++] = get_contents()
     next
 }
 
-in_entry && /<keb>/ {
+/<keb>/ {
     kr[krn++] = get_contents()
-    next
-}
-
-/<entry>/ {
-    in_entry = 1
     next
 }
 
