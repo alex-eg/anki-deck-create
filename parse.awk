@@ -33,6 +33,11 @@ in_entry && /<keb>/ {
     next
 }
 
+/<entry>/ {
+    in_entry = 1
+    next
+}
+
 found && /<\/entry>/ {
     for (l in keb)
         print keb[l]
@@ -45,11 +50,6 @@ found && /<\/entry>/ {
     delete reb
     delete gloss
     found = 0
-    next
-}
-
-/<entry>/ {
-    in_entry = 1
     next
 }
 
