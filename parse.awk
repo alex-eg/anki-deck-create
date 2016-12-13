@@ -15,6 +15,13 @@ function is_empty(array) {
     return 1
 }
 
+function clear_arrays() {
+    gn = 0
+    krn = 0
+    delete gloss
+    delete kr
+}
+
 BEGIN {
     for (i = 2; i < ARGC; i++) {
         if (inexact)
@@ -62,19 +69,12 @@ found && /<\/entry>/ {
         print gloss[l]
     print "----------------------------------"
     found = 0
-    gn = 0
-    krn = 0
-    delete gloss
-    delete kr
+    clear_arrays()
     next
 }
 
 /<\/entry>/ {
-    in_entry = 0
-    gn = 0
-    krn = 0
-    delete gloss
-    delete kr
+    clear_arrays()
 }
 
 END {
