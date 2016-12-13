@@ -18,7 +18,7 @@ $0 ~ Match {
     found = 1
 }
 
-in_entry && /<gloss>/ {
+in_entry && /<gloss.*lang="rus">/ {
     gloss[gn++] = get_contents()
     next
 }
