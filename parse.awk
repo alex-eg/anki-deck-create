@@ -1,21 +1,32 @@
 # Example usage:
-# awk parse.awk -v S=悪い JMdict -- to find entries exactly matching "悪い"
-# awk parse.awk -v S=悪い -v inexact=1 JMdict -- to find all mentions of "悪い"
-
-BEGIN {
-    if (inexact)
-        Match = S
-    else
-        Match = ">" S "<"
-}
+# awk parse.awk JMdict 悪い 良い 国士無双 -- to find entries exactly
+# matching input
+# awk parse.awk -v inexact=1 JMdict 悪い 良い 国士無双 -- to find all
+# mentions of provided words
 
 function get_contents() {
     split($0, a, ">")
     return substr(a[2], 0, index(a[2], "<") - 1)
 }
 
-$0 ~ Match {
-    found = 1
+BEGIN {
+    for (i = 2; i < ARGC; i++) {
+        if (inexact)
+            Words[i-2] = ARGV[i]
+        else
+            Words[i-2] = ">" ARGV[i] "<"
+        delete ARGV[i]
+    }
+    ARGC = 2
+}
+
+{
+    for (w in Words) {
+        if ($0 ~ Words[w]) {
+            found = 1
+            delete Words[w]
+        }
+    }
 }
 
 in_entry && /<gloss.*lang="rus">/ {
