@@ -41,12 +41,12 @@ in_entry && /<gloss.*lang="rus">/ {
 }
 
 in_entry && /<reb>/ {
-    reb[rn++] = get_contents()
+    kr[krn++] = get_contents()
     next
 }
 
 in_entry && /<keb>/ {
-    keb[kn++] = get_contents()
+    kr[krn++] = get_contents()
     next
 }
 
@@ -56,25 +56,25 @@ in_entry && /<keb>/ {
 }
 
 found && /<\/entry>/ {
-    for (l in keb)
-        print keb[l]
-    for (l in reb)
-        print reb[l]
+    for (l in kr)
+        print kr[l]
     for (l in gloss)
         print gloss[l]
     print "----------------------------------"
-    delete keb
-    delete reb
-    delete gloss
     found = 0
+    gn = 0
+    krn = 0
+    delete gloss
+    delete kr
     next
 }
 
 /<\/entry>/ {
     in_entry = 0
+    gn = 0
+    krn = 0
     delete gloss
-    delete keb
-    delete reb
+    delete kr
 }
 
 END {
