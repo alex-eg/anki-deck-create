@@ -63,6 +63,11 @@ in_entry && /<keb>/ {
 }
 
 found && /<\/entry>/ {
+    if (is_empty(gloss)) {
+        found = 0
+        clear_arrays()
+        next
+    }
     for (l in kr)
         print kr[l]
     for (l in gloss)
