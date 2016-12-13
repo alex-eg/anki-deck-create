@@ -33,7 +33,7 @@ BEGIN {
     ARGC = 2
 }
 
-{
+/(<keb>|<reb>)/ {
     for (w in Words) {
         if ($0 ~ Words[w]) {
             found = 1
