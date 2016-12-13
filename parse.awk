@@ -9,6 +9,12 @@ function get_contents() {
     return substr(a[2], 0, index(a[2], "<") - 1)
 }
 
+function is_empty(array) {
+    for (i in array)
+        return 0
+    return 1
+}
+
 BEGIN {
     for (i = 2; i < ARGC; i++) {
         if (inexact)
@@ -69,4 +75,12 @@ found && /<\/entry>/ {
     delete gloss
     delete keb
     delete reb
+}
+
+END {
+    if (! is_empty(Words)) {
+        print "Can't find following words:"
+        for (w in Words)
+            print "   " Words[w]
+    }
 }
