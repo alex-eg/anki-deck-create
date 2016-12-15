@@ -17,9 +17,11 @@ function is_empty(array) {
 
 function clear_arrays() {
     gn = 0
-    krn = 0
+    kn = 0
+    rn = 0
     delete gloss
-    delete kr
+    delete keb
+    delete reb
 }
 
 BEGIN {
@@ -48,12 +50,12 @@ BEGIN {
 }
 
 /<reb>/ {
-    kr[krn++] = get_contents()
+    reb[rn++] = get_contents()
     next
 }
 
 /<keb>/ {
-    kr[krn++] = get_contents()
+    keb[kn++] = get_contents()
     next
 }
 
@@ -63,11 +65,7 @@ found && /<\/entry>/ {
         clear_arrays()
         next
     }
-    for (l in kr)
-        print kr[l]
-    for (l in gloss)
-        print gloss[l]
-    print "----------------------------------"
+    print keb[0] ";" reb[0] ";" gloss[0]
     found = 0
     clear_arrays()
     next
