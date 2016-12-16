@@ -27,9 +27,9 @@ function clear_arrays() {
 BEGIN {
     for (i = 2; i < ARGC; i++) {
         if (inexact)
-            Words[i-2] = ARGV[i]
+            Words[ARGV[i]] = i - 1
         else
-            Words[i-2] = ">" ARGV[i] "<"
+            Words[">" ARGV[i] "<"] = i - 1
         delete ARGV[i]
     }
     ARGC = 2
@@ -37,9 +37,9 @@ BEGIN {
 
 /(<keb>|<reb>)/ {
     for (w in Words) {
-        if ($0 ~ Words[w]) {
+        if ($0 ~ w) {
             found = 1
-            delete Words[w]
+            Found[w] = ++fn
         }
     }
 }
@@ -78,9 +78,14 @@ found && /<\/entry>/ {
 }
 
 END {
-    if (! is_empty(Words)) {
-        print "Can't find following words:"
-        for (w in Words)
-            print "   " Words[w]
+    first = 1
+    for (w in Words) {
+        if (! (w in Found)) {
+            if (first) {
+                print "Can't find following words:"
+                first = 0
+            }
+            print "   " w
+        }
     }
 }
