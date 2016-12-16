@@ -35,5 +35,10 @@ while [[ $# -gt 0 ]]; do
         shift
 done
 
+if [[ -z "$words" ]]; then
+        usage
+        exit 1
+fi
+
 gawk -f parse.awk $options JMdict $words
 exit $?
