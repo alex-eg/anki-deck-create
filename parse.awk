@@ -65,7 +65,9 @@ found && /<\/entry>/ {
         clear_arrays()
         next
     }
-    print keb[0] ";" reb[0] ";" gloss[0]
+    printf "%s;%s;", keb[0], reb[0]
+    for (l in gloss) printf "%s ", gloss[l]
+    printf "\n"
     found = 0
     clear_arrays()
     next
