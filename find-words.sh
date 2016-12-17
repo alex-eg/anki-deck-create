@@ -2,7 +2,7 @@
 # Find all provided words
 
 usage() {
-        cat <<EOF
+    cat <<EOF
 Usage: find-words.sh [options] word...
 Options:
   --fuzzy        Find inexact matches.
@@ -14,30 +14,30 @@ words=""
 options=""
 
 if [[ $# -eq 0 ]]; then
-        usage
-        exit 1
+    usage
+    exit 1
 fi
 
 while [[ $# -gt 0 ]]; do
-        case $1 in
-                --fuzzy)
-                        fuzzy=1
-                        options="$options -v inexact=1"
-                        ;;
-                --*)
-                        usage
-                        exit 1
-                        ;;
-                *)
-                        words="$1 $words"
-                        ;;
-        esac
-        shift
+    case $1 in
+        --fuzzy)
+            fuzzy=1
+            options="$options -v inexact=1"
+            ;;
+        --*)
+            usage
+            exit 1
+            ;;
+        *)
+            words="$1 $words"
+            ;;
+    esac
+    shift
 done
 
 if [[ -z "$words" ]]; then
-        usage
-        exit 1
+    usage
+    exit 1
 fi
 
 gawk -f parse.awk $options JMdict $words
