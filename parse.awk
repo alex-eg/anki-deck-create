@@ -17,9 +17,11 @@ function is_empty(array) {
 
 function clear_arrays() {
     gn = 0
+    gn_en = 0
     kn = 0
     rn = 0
     delete gloss
+    delete gloss_en
     delete keb
     delete reb
 }
@@ -49,6 +51,11 @@ BEGIN {
     next
 }
 
+/<gloss>/ {
+    gloss_en[gn_en++] = get_contents()
+    next
+}
+
 /<reb>/ {
     reb[rn++] = get_contents()
     next
@@ -60,13 +67,12 @@ BEGIN {
 }
 
 found && /<\/entry>/ {
-    if (is_empty(gloss)) {
-        found = 0
-        clear_arrays()
-        next
-    }
     printf "%s;%s;", keb[0], reb[0]
-    for (l in gloss) printf "%s ", gloss[l]
+    if (! is_empty(gloss)) {
+        for (l in gloss) printf "%s ", gloss[l]
+    } else {
+        for (l in gloss_en) printf "%s ", gloss_en[l]
+    }
     printf "\n"
     found = 0
     clear_arrays()
