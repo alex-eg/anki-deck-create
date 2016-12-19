@@ -67,13 +67,22 @@ BEGIN {
 }
 
 found && /<\/entry>/ {
-    printf "%s;%s;", keb[0], reb[0]
+    printf "%s;%s;\"", keb[0], reb[0]
+    rest = 0
     if (! is_empty(gloss)) {
-        for (l in gloss) printf "%s ", gloss[l]
+        for (l in gloss) {
+            if (rest) printf "\n"
+            printf "%s", gloss[l]
+            rest = 1
+        }
     } else {
-        for (l in gloss_en) printf "%s ", gloss_en[l]
+        for (l in gloss_en) {
+            if (rest) printf "\n"
+            printf "%s", gloss_en[l]
+            rest = 1
+        }
     }
-    printf "\n"
+    printf "\"\n"
     found = 0
     clear_arrays()
     next
