@@ -6,7 +6,7 @@ usage() {
 Usage: find-words.sh [options] word...
 Options:
   --fuzzy        Find inexact matches.
-  --file <file>  File with list of words to find. Must be one word per line,
+  --file=<file>  File with list of words to find. Must be one word per line,
                    lines starting with '#' are ignored.
 EOF
 }
