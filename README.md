@@ -1,9 +1,12 @@
+Anki deck creator
+-----
+Super simple awk + bash tool for creating Anki decks of japanese words.
 
 Finds dictionary entries for all provided japanese words.
 
 Example usage:
 
-	$ ./find-words.sh 悴む 悪人 上着 下着
+	$ ./find-words.sh --lang=ru 悴む 悪人 上着 下着
 
     悴む
     かじかむ

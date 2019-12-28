@@ -6,6 +6,7 @@ usage() {
 Usage: find-words.sh [options] word...
 Options:
   --fuzzy        Find inexact matches.
+  --lang=<lang>  Set language. Available options: ru, en
   --file=<file>  File with list of words to find. Must be one word per line,
                    lines starting with '#' are ignored.
 EOF
@@ -13,6 +14,7 @@ EOF
 
 words=""
 options=""
+lang="en"
 
 if [[ $# -eq 0 ]]; then
     usage
@@ -24,6 +26,10 @@ while [[ $# -gt 0 ]]; do
         --fuzzy)
             fuzzy=1
             options="$options -v inexact=1"
+            ;;
+        --lang=*)
+            lang=${1##*=}
+            options="$options -v lang=$lang"
             ;;
         --file=*)
             file=${1##*=}
