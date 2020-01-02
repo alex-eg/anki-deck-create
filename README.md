@@ -29,3 +29,24 @@ Example usage:
     1) пиджак; жакет; тужурка, китель
     2) одежда; верхнее кимоно
     ----------------------------------
+
+Batch use
+-----
+To generate a deck for a lot of words, it's far more convenient to use input from file:
+
+    $ cat ./word-list
+    言彙力
+    鼠
+    新幹線
+
+    $ ./find-words.sh --file=./words-list
+    新幹線;しんかんせん;"Shinkansen
+    bullet train"
+    鼠;ねずみ;"mouse
+    rat
+    dark gray
+    dark grey
+    slate (color, colour)"
+    語彙力;ごいりょく;"(the extent of) one's vocabulary"
+
+Don't forget to set ';' as separator when importing resulting deck into the Anki.
